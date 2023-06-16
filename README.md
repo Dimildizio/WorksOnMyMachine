@@ -17,7 +17,7 @@ To get started with this project, follow the steps below:
 
 > Go to project dir: cd WorksOnMyMachine
 
-> Build Docker image: docker build -t WorksOnMyMachine
+> Build Docker image: docker build -t worksonmymachine .
 
 > Run docker container: docker run -p 8000:8000 WorksOnMyMachine
 
