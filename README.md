@@ -19,11 +19,11 @@ To get started with this project, follow the steps below:
 
 > Build Docker image: docker build -t worksonmymachine .
 
-> Run docker container: docker run -p 8000:8000 WorksOnMyMachine
+> Run docker container: docker run -p 8000:8000 worksonmymachine
 
 ## Usage 
 
-In further development proccess buttons or checkboxes could be created to represent a particular passenger's features. Upon click the code will predict the chance of survival. 
+In further development proccess buttons or checkboxes could be created to represent a particular passenger's features. Upon a click the code will predict the chance of survival. 
 
 ## Customization
 If you wish to customize the FastAPI implementation or use your own dataset, you can modify the following files:
