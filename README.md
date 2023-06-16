@@ -32,7 +32,7 @@ If you wish to customize the FastAPI implementation or use your own dataset, you
 
 > app/models.py: Todo. Here, you'll be able modify the data models used in the project. It will provide a simplified model for the Titanic dataset.
 
-> data/titanic.csv: This file contains the example Titanic dataset used in the project. If you want to use your own dataset, you can replace this file with your own CSV file. Ensure that the column names and types match the ones expected by the FastAPI implementation.
+> data/train.csv and data/test.csv: These files contain the example Titanic dataset used in the project. If you want to use your own dataset, you can replace these files with your own CSV file. Ensure that the column names and types match the ones expected by the FastAPI implementation.
 
 ## Contributing
 Contributions to this project are welcome! If you have any improvements or suggestions, feel free to open an issue or submit a pull request.
