@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from data_preprocessing import process
+
 # from pydantic import BaseModel
 
 app = FastAPI()
@@ -12,9 +13,10 @@ def read_root():
 
 
 @app.get("/prediction")
-def make_prediction(name: str, title: str, sex: str, pclass: int, age: int, deck: str, fare: float, siblings: int,
-                    spouse: int, relatives: int, embarked: str):
-    if process(title, sex, pclass, age, deck, fare, siblings, spouse, relatives, embarked):
+def make_prediction(title: str, name: str, surname: str, sex: str, pclass: int, age: int, cabin: str, fare: float,
+                    siblings: int, spouse: int, relatives: int, embarked: str, ticket: str):
+
+    if process(title, name, surname, sex, pclass, age, cabin, fare, siblings, spouse, relatives, embarked, ticket):
         result = f'{name} has survived'
     else:
         result = f'{name} has died'

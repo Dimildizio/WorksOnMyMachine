@@ -1,5 +1,5 @@
 import pandas as pd
-from data_encoder import create_encoder
+from data_encoder import create_encoder, encode_data
 
 
 def get_title(df):
@@ -48,22 +48,31 @@ def fill_na(df):
 def apply_all(data):
     df = data.copy()
     for func in [fill_na, get_title, get_family, get_fare_per_person, get_deck,
-                 drop_useless]:#, predict_age, get_age_buckets, change_dtypes]:
+                 drop_useless]:  # , predict_age, get_age_buckets, change_dtypes]:
         df = func(df)
     return df
 
 
 def train_encoder(cols=['Sex', 'Title', 'Deck', 'Embarked']):
+    # Concatenates train and test datasets and train the encoder on both
     train = pd.read_csv('data/train.csv')
     test = pd.read_csv('data/test.csv')
-    df1 = pd.concat([train.drop('Survived', axis=1), test], axis=0)
-    for func in [fill_na, get_title, get_family, get_fare_per_person, get_deck, drop_useless]:
-        df1 = func(df1)
 
-    part_1 = df1[cols]
-    part_2 = df1.drop(cols, axis=1)
+    df = pd.concat([train.drop('Survived', axis=1), test], axis=0)
+    df = apply_all(df)
+    part_1 = df[cols]
+    part_2 = df.drop(cols, axis=1)
 
     part_1_encoded = create_encoder(part_1)
-    df1 = pd.concat([part_1_encoded, part_2], axis=1)
-    return df1
+    df = pd.concat([part_1_encoded, part_2], axis=1)
+    return df
+
+
+def load_encoder(data):
+    transformed_data = apply_all(data)
+    return encode_data(transformed_data)
+
+
+if __name__ == '__main__':
+    train_encoder()
 

@@ -3,21 +3,27 @@ from sklearn.preprocessing import LabelEncoder
 
 
 def create_encoder(data):
-    encoder = LabelEncoder()
-    encoded = data.apply(lambda x: encoder.fit_transform(x))
+    encoders = {}
+    encoded = data.copy()
+    for col in encoded.columns:
+        encoder = LabelEncoder()
+        encoded[col] = encoder.fit_transform(encoded[col])
+        encoders[col] = encoder
     with open('encoder.pk1', 'wb') as f:
-        pickle.dump(encoder, f)
+        pickle.dump(encoders, f)
     return encoded
 
 
 def encode_data(data):
-    #THIS HAS A PROBLEM - classes_ are all encoded labels not colnames
-    encoder = get_encoder()
-    return data.apply(lambda x: encoder.transform(x) if x.name in encoder.classes_ else x)
-
+    encoders = get_encoder()
+    for col, le in encoders.items():
+        data[col] = le.transform(data[col])
+    return data
 
 
 def get_encoder():
     with open('encoder.pk1', 'rb') as f:
-        encoder = pickle.load(f)
-    return encoder
+        encoders = pickle.load(f)
+    return encoders
+
+
