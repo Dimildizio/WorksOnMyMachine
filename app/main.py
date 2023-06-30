@@ -17,8 +17,10 @@ def read_root():
 def make_prediction(title: str, name: str, surname: str, sex: str, pclass: int, age: int, cabin: str, fare: float,
                     siblings: int, spouse: int, relatives: int, embarked: str, ticket: str):
 
-    if process(title, name, surname, sex, pclass, age, cabin, fare, siblings, spouse, relatives, embarked, ticket):
-        result = f'{name} has survived'
+    output = process(title, name, surname, sex, pclass, age, cabin, fare, siblings, spouse, relatives, embarked, ticket)
+    print('The model predicted:', output)
+    if output:
+        result = f': {name} has survived'
     else:
-        result = f'{name} has died'
-    return {"Prediction": result}
+        result = f': {name} has died'
+    return {"Prediction": str(output)+result}

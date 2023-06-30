@@ -27,7 +27,9 @@ def process_text(fullname: str, sex: str, pclass: int, age: int, cabin: str, far
 
 
 def get_model_result(*args):
-    return predict(*args)
+    predicted = predict(*args)[0]
+    print('Congratulations, you have survived the Titanic catastrophy' if predicted else 'Sorry, you have died')
+    return predicted
 
 
 if __name__ == '__main__':

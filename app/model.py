@@ -1,13 +1,15 @@
-import random
+import os
 import pandas as pd
 from catboost import Pool, CatBoostClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from train_preprocess import predict_age, cut_outlier
+from train_preprocess import predict_age, cut_outlier, load_encoder
 
 
 def predict(data):
-    return random.random() > 0.7
+    model = load_model()
+    model_result = model.predict(data)
+    return model_result
 
 
 def xy_split(data):
@@ -49,6 +51,8 @@ def find_best_params(data):
 
 def prepare_train(data, best_result=False):
     train_pool, val_pool, X_val, y_val = get_train_pool(data)
+    print(X_val.columns)
+    print(X_val.head(2))
     best_result = best_result if best_result else find_best_params(train_pool)
     model = predict_me(best_result, train_pool, val_pool, X_val, y_val)
     return model
@@ -62,7 +66,19 @@ def train_model(train_df, test_df):
     return model
 
 
+def create_model():
+    train_df = pd.read_csv('data/train.csv')
+    test_df = pd.read_csv('data/test.csv')
+    os.makedirs('models', exist_ok=True)
+    model = train_model(train_df, test_df)
+    model.save_model('models/titanicboost.cbm')
+
+
+def load_model():
+    model = CatBoostClassifier()
+    model.load_model('models/titanicboost.cbm')
+    return model
+
+
 if __name__ == '__main__':
-    tr_df = pd.read_csv('data/train.csv')
-    tst_df = pd.read_csv('data/test.csv')
-    mdl = train_model(tr_df, tst_df)
+    create_model()

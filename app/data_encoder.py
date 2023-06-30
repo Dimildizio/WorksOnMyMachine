@@ -26,4 +26,3 @@ def get_encoder():
         encoders = pickle.load(f)
     return encoders
 
-
