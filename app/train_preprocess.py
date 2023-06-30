@@ -1,5 +1,6 @@
 import pandas as pd
 from data_encoder import create_encoder, encode_data
+from predict_age_model import age_predictor
 
 
 def get_title(df):
@@ -53,6 +54,18 @@ def apply_all(data):
     return df
 
 
+def cut_outlier(data):
+    data = data[data['Age'] < 70]
+    data = data[data['PersonFare'] < 300]
+    return data
+
+
+def predict_age(train, test):
+    df_train = load_encoder(train.copy().drop('Survived', axis=1))
+    df_test = load_encoder(test.copy())
+    return age_predictor(df_train, df_test, train['Survived'])
+
+
 def train_encoder(cols=['Sex', 'Title', 'Deck', 'Embarked']):
     # Concatenates train and test datasets and train the encoder on both
     train = pd.read_csv('data/train.csv')
@@ -75,4 +88,3 @@ def load_encoder(data):
 
 if __name__ == '__main__':
     train_encoder()
-

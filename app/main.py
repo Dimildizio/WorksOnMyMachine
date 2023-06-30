@@ -13,6 +13,7 @@ def read_root():
 
 
 @app.get("/prediction")
+# line should work like this: http://localhost:8000/prediction?title=Mr&surname=Johnes&name=John&sex=male&pclass=2&age=30&cabin=E3213&fare=76.4&siblings=1&spouse=0&relatives=1&embarked=S&ticket=121441
 def make_prediction(title: str, name: str, surname: str, sex: str, pclass: int, age: int, cabin: str, fare: float,
                     siblings: int, spouse: int, relatives: int, embarked: str, ticket: str):
 
