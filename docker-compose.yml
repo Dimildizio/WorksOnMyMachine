@@ -1,0 +1,18 @@
+version: '3'
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./app:/app
+  flask:
+    build:
+      context: ./app/flask_app
+      dockerfile: Dockerfile_flask
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./app/flask_app:/app

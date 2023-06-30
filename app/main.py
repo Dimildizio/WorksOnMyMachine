@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Query
-from data_preprocessing import process, process_text
+from data_preprocessing import process
 
 # from pydantic import BaseModel
 
