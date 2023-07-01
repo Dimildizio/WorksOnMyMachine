@@ -6,9 +6,10 @@ This repository provides a dockerized implementation of a FastAPI project, using
 ## Requirements
 To use this project, you need to have the following installed on your system:
 
-> Docker: Install Docker
+> Docker: Install **Docker**
 
-> Docker Compose (optional): Install Docker Compose (not required but recommended)
+> Docker Compose (optional): Install **Docker Compose** (not required but recommended)
+
 
 ## Getting Started
 To get started with this project, follow the steps below:
@@ -19,7 +20,25 @@ To get started with this project, follow the steps below:
 
 > Build Docker image: docker build -t worksonmymachine .
 
-> Run docker container: docker run -p 8000:8000 worksonmymachine
+> go to the flask_app subfolder: cd app/flask_app
+
+> Build Docker image: docker build -t titanicflask -f Dockerfile_flask .
+
+> Run docker container on port 8000 of you local machine: docker run -p 8000:8000 worksonmymachine
+
+> Run docker containeron port 5000 of you local machine: docker run -p 5000:5000 titanicflask
+
+**Note**: If you make any changes to the code or configuration files, you'll need to rebuild the respective Docker image(s) and restart the container(s).
+
+(_Optional_) If you prefer to use Docker Compose, ensure that Docker Compose is installed. Then, run the following command to start both the FastAPI and Flask applications:
+
+> docker-compose up
+
+This will start the FastAPI application on http://localhost:8000 and the Flask application on http://localhost:5000, accessible from your local machine.
+
+**Note**: If you make any changes to the code or configuration files, you can use the **docker-compose up --build** command to rebuild the Docker images and apply the changes.
+
+Open a web browser and visit http://localhost:8000 to access the FastAPI application. If you are using Docker Compose, you can also access the Flask application at http://localhost:5000.
 
 ## Usage 
 
