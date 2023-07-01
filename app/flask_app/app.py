@@ -52,4 +52,5 @@ def prediction():
 
 
 if __name__ == '__main__':
-    app.run()
+    print('I am running')
+    app.run(host='0.0.0.0', port=5000)
