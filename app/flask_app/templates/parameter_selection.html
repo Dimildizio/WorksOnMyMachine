@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Booking a ticket to Titanic</h1>
-    <form action ="/prediction" method ="post">
+    <form action ="http://localhost:5000/prediction" method ="get">
         <label  for="title">Title:</label>
         <select id="title" name="title" required>
             <option value="Mr">Mr</option>
@@ -45,7 +45,10 @@
         <input type="number" id="siblings" name="siblings" required><br>
 
         <label  for="spouse">Spouse:</label>
-        <input type="number" id="spouse" name="spouse" required><br>
+        <select id="spouse" name="spouse" required>
+            <option value=1>Yes</option>
+            <option value=0>No</option>
+        </select><br>
 
         <label  for="relatives">Children:</label>
         <input type="number" id="relatives" name="relatives" required><br>
