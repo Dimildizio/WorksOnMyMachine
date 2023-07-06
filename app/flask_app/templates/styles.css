@@ -1,0 +1,103 @@
+
+
+
+/* Ticket booking Container */
+.container {
+  width: 25%;
+  max-width: 300px;
+  margin: 20px;
+  float: left;
+  clear: left;
+  background: linear-gradient(#33CCFF,#585858);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+h1 {
+  text-align: center;
+}
+
+/* Each row */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Groups in rows */
+.form-group {
+  flex-basis: 48%;
+  margin-bottom: 2px;
+  margin-right: 2%;
+}
+
+/* Form labels - names */
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* Form inputs and selections available */
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 6px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+}
+
+/* Submit button */
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 50px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 4px;
+
+}
+.center {
+  justify-content: center;
+}
+/* Submit button hover effect */
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Error message */
+input:invalid,
+select:invalid {
+  border-color: #ff0000;
+}
+
+/* Error message text */
+input:invalid+span::before,
+select:invalid+span::before {
+  content: '⚠ ';
+  color: #ff0000;
+}
+
+/* Clear float */
+.clear {
+  clear: both;
+}
+
+/* Responsive layout */
+@media (max-width: 500px) {
+  .form-row {
+    flex-direction: column;
+  }
+  .form-group {
+    flex-basis: 100%;
+  }
+}

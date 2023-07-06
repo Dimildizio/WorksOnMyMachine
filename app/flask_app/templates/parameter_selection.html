@@ -2,84 +2,143 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
     <title>Titanic parameter selection</title>
+    <style>
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Booking a ticket to Titanic</h1>
-    <form action ="http://localhost:5000/prediction" method ="get">
-        <label  for="title">Title:</label>
-        <select id="title" name="title" required>
-            <option value="Mr">Mr</option>
-            <option value="Mrs">Mrs</option>
-            <option value="Ms">Ms</option>
-            <option value="Dr">Dr</option>
-            <option value="Master">Master</option>
-            <option value="Rev">Reverend</option>
-            <option value="Major">Major</option>
-            <option value="Capt">Captain</option>
-            <option value="Don">Don</option>
-            <option value="Dona">Dona</option>
-            <option value="Lady">Lady</option>
-            <option value="Sir">Sir</option>
-        </select><br>
+    <div class="container">
+        <h1>Booking a ticket to Titanic</h1>
+        <form action="http://localhost:5000/prediction" method="get">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="surname">Surname:</label>
+                    <input type="text" id="surname" name="surname" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <select id="title" name="title" required>
+                        <option value="Mr">Mr</option>
+                        <option value="Mrs">Mrs</option>
+                        <option value="Ms">Ms</option>
+                        <option value="Dr">Dr</option>
+                        <option value="Master">Master</option>
+                        <option value="Rev">Reverend</option>
+                        <option value="Major">Major</option>
+                        <option value="Capt">Captain</option>
+                        <option value="Don">Don</option>
+                        <option value="Dona">Dona</option>
+                        <option value="Lady">Lady</option>
+                        <option value="Sir">Sir</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" min="0" name="age" required>
+                </div>
+            </div>
 
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="sex">Sex:</label>
+                    <select id="sex" name="sex" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="spouse">Spouse:</label>
+                    <select id="spouse" name="spouse" required>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="relatives">Children:</label>
+                    <input type="number" id="relatives" min="0" name="relatives" required>
+                </div>
+                <div class="form-group">
+                    <label for="siblings">Siblings:</label>
+                    <input type="number" id="siblings" min="0" name="siblings" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="embarked">Port of departure:</label>
+                    <select id="embarked" name="embarked" required>
+                        <option value="S">Southampton</option>
+                        <option value="C">Cherbourg</option>
+                        <option value="Q">Queenstown</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="arrival" class="non-selectable-label">Port of arrival:</label>
+                    <select id="arrival" name="arrival" disabled>
+                        <option selected disabled hidden>New York</option>
+                    </select>
+                </div>
+            </div>
+                <div class="form-row">
+                <div class="form-group">
+                    <label for="pclass">Ticket class:</label>
+                    <select id="pclass" name="pclass" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="deck">Deck:</label>
+                    <select id="deck" name="deck" required>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row center">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function validateForm() {
+            var ageInput = document.getElementById("age");
+            var siblingsInput = document.getElementById("siblings");
+            var relativesInput = document.getElementById("relatives");
 
-        <label  for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br>
+            if (ageInput.value < 0) {
+                ageInput.value = 0;
+            }
 
-        <label  for="surname">Surname:</label>
-        <input type="text" id="surname" name="surname" required><br>
+            if (siblingsInput.value < 0) {
+                siblingsInput.value = 0;
+            }
 
+            if (relativesInput.value < 0) {
+                relativesInput.value = 0;
+            }
 
-        <label  for="sex">Sex:</label>
-        <select id="sex" name="sex" required>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select><br>
-
-
-        <label  for="age">Age:</label>
-        <input type="number" id="age" name="age" required><br>
-
-        <label  for="siblings">Siblings:</label>
-        <input type="number" id="siblings" name="siblings" required><br>
-
-        <label  for="spouse">Spouse:</label>
-        <select id="spouse" name="spouse" required>
-            <option value=1>Yes</option>
-            <option value=0>No</option>
-        </select><br>
-
-        <label  for="relatives">Children:</label>
-        <input type="number" id="relatives" name="relatives" required><br>
-
-        <label  for="embarked">Port of departure:</label>
-        <select id="embarked" name="embarked" required>
-            <option value="S">Southampton</option>
-            <option value="C">Cherbourg</option>
-            <option value="Q">Queenstown</option>
-        </select><br>
-
-        <label  for="pclass">Ticket class:</label>
-        <select id="pclass" name="pclass" required>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select><br>
-
-        <label  for="deck">Deck:</label>
-        <select id="deck" name="deck" required>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-        </select><br>
-
-        <button type="submit">Submit</button>
-
-    </form>
+            return true; // Allow the form submission
+        }
+    </script>
 </body>
 </html>
