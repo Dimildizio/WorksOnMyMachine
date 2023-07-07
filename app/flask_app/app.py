@@ -60,7 +60,7 @@ def prediction():
     fate = result['Prediction']
     print("Rendering predicted fate template")
 
-    if fate[0]:
+    if int(fate[0]):
         # Survived page
         page = render_template('fate_survived.html', message=message, fate=fate)
     else:
