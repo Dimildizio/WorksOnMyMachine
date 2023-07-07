@@ -62,16 +62,16 @@ def prediction():
 
     if fate[0]:
         # Survived page
-        page = render_template('predicted_fate.html', message=message, fate=fate)
+        page = render_template('fate_survived.html', message=message, fate=fate)
     else:
         # Change later for death page
-        page = render_template('predicted_fate.html', message=message, fate=fate)
+        page = render_template('fate_died.html', message=message, fate=fate)
     return page
 
 
 def dicaprio(name, surname):
     jack = name in ['Jack', 'Джек']
-    dawson = surname in ['Dawson', 'Доусон', 'Довсон', 'Даусон']
+    dawson = surname in ['Dawson', 'Доусон', 'Довсон', 'Даусон', 'Досон']
     leo = name in ['Leo', 'Leonardo', 'Леонардо', 'Лео']
     di = ''.join(surname.split()).lower() == 'dicaprio'
     return (leo and di) or (jack and dawson)
