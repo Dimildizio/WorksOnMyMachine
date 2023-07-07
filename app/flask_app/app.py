@@ -70,10 +70,10 @@ def prediction():
 
 
 def dicaprio(name, surname):
-    jack = name in ['Jack', 'Джек']
-    dawson = surname in ['Dawson', 'Доусон', 'Довсон', 'Даусон', 'Досон']
-    leo = name in ['Leo', 'Leonardo', 'Леонардо', 'Лео']
-    di = ''.join(surname.split()).lower() == 'dicaprio'
+    jack = name.lower() in ['jack', 'джек']
+    dawson = surname.lower() in ['dawson', 'доусон', 'довсон', 'даусон', 'досон']
+    leo = name.lower() in ['leo', 'leonardo', 'леонардо', 'лео']
+    di = ''.join(surname.split()).lower() in ['dicaprio', 'дикаприо']
     return (leo and di) or (jack and dawson)
 
 

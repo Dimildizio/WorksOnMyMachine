@@ -3,7 +3,7 @@ import pandas as pd
 from catboost import Pool, CatBoostClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from train_preprocess import predict_age, cut_outlier, load_encoder
+from train_preprocess import predict_age, cut_outlier
 
 
 def predict(data):
@@ -90,10 +90,21 @@ def load_model():
     model.load_model('models/titanicboost.cbm')
     return model
 
+def load_onnx_model(df):
+    '''
+    Requires onnxruntime installed. Not in requirements.txt as of now.
+    Might replace catboost model with it later
+
+    import onnxruntime
+    values = df.values
+    model = onnxruntime.InferenceSession('titanicboost.onnx')
+    label = model.run('label',{'features': values})[0][0]
+    return label
+    '''
+    pass
+
 
 if __name__ == '__main__':
     # create_model()
     save_onnx_model()
-
-
 
