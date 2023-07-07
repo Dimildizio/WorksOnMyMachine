@@ -74,6 +74,17 @@ def create_model():
     model.save_model('models/titanicboost.cbm')
 
 
+def save_onnx_model():
+    model = load_model()
+    model.save_model("models/titanicboost.onnx",
+                     format="onnx",
+                     export_parameters={
+                        'onnx_domain': 'ai.catboost',
+                        'onnx_model_version': 1,
+                        'onnx_doc_string': 'model for titanic binary classification',
+                        'onnx_graph_name': 'titanic_binary_catboost_classification'})
+
+
 def load_model():
     model = CatBoostClassifier()
     model.load_model('models/titanicboost.cbm')
@@ -81,4 +92,8 @@ def load_model():
 
 
 if __name__ == '__main__':
-    create_model()
+    # create_model()
+    save_onnx_model()
+
+
+

@@ -229,7 +229,7 @@ select:invalid+span::before {
 
 .wave:nth-of-type(4) {
   bottom: -30%;
-  animation: wave 22s -1s linear infinite;
+  animation: wave 25s -1s linear infinite;
   opacity: 0.2;
    z-index: 3;
 }
