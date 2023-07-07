@@ -11,6 +11,8 @@ body {
   justify-content: center;
 }
 
+
+
 /* Ticket booking Container */
 .container {
   width: 90%;
@@ -74,6 +76,9 @@ button[type="submit"] {
   font-size: 14px;
   margin-top: 4px;
 }
+
+
+
 
 .center {
   justify-content: center;
@@ -183,7 +188,7 @@ select:invalid+span::before {
 
 @keyframes moveShip {
   0% {
-    left: 20%;
+    left: -15%;
   }
   100% {
     left: 120%;

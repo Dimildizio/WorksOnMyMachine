@@ -15,7 +15,6 @@
 <body>
 
     <div class="ocean">
-
         <div class="wave"></div>
         <div class="wave"></div>
         <div class="iceberg"></div>
@@ -28,8 +27,8 @@
 
 
     <div class="container">
-        <h1>Booking a ticket to Titanic</h1>
-        <form action="http://localhost:5000/prediction" method="get">
+        <h1>Book a ticket to Titanic</h1>
+        <form action="http://localhost:5000/prediction" method="get" onsubmit="validateForm()">
             <div class="form-row">
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -74,26 +73,26 @@
                 </div>
                 <div class="form-group">
                     <label for="spouse">Spouse:</label>
-                    <select id="spouse" name="spouse" required>
+                    <select id="spouse" name="spouse" onchange="calculatePrice()" required>
                         <option value="1">Yes</option>
-                        <option value="0">No</option>
+                        <option value="0" selected>No</option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="relatives">Children:</label>
-                    <input type="number" id="relatives" min="0" name="relatives" required>
+                    <input type="number" id="relatives" min="0" name="relatives" onchange="calculatePrice()" required>
                 </div>
                 <div class="form-group">
                     <label for="siblings">Siblings:</label>
-                    <input type="number" id="siblings" min="0" name="siblings" required>
+                    <input type="number" id="siblings" min="0" name="siblings" onchange="calculatePrice()" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="embarked">Port of departure:</label>
-                    <select id="embarked" name="embarked" required>
+                    <select id="embarked" name="embarked" onchange="onDepartureChange()" required>
                         <option value="S">Southampton</option>
                         <option value="C">Cherbourg</option>
                         <option value="Q">Queenstown</option>
@@ -109,7 +108,7 @@
                 <div class="form-row">
                 <div class="form-group">
                     <label for="pclass">Ticket class:</label>
-                    <select id="pclass" name="pclass" required>
+                    <select id="pclass" name="pclass" onchange="deckClassPrice()" required>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -128,31 +127,17 @@
                     </select>
                 </div>
             </div>
+
             <div class="form-row center">
                 <button type="submit">Submit</button>
             </div>
+            <div class="form-row center" id="price-row">
+                <label for="price"></label>
+                <span id="price"></span>
+            </div>
         </form>
+
     </div>
-    <script>
-        function validateForm() {
-            var ageInput = document.getElementById("age");
-            var siblingsInput = document.getElementById("siblings");
-            var relativesInput = document.getElementById("relatives");
-
-            if (ageInput.value < 0) {
-                ageInput.value = 0;
-            }
-
-            if (siblingsInput.value < 0) {
-                siblingsInput.value = 0;
-            }
-
-            if (relativesInput.value < 0) {
-                relativesInput.value = 0;
-            }
-
-            return true; // Allow the form submission
-        }
-    </script>
+    <script src="titanscript.js"></script>
 </body>
 </html>
