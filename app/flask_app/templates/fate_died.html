@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="fate_died.css">
-    <title>Say hello to the sharks!</title>
+    <!-- for flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fate_died.css')}}">
+    <!--for pure .html launch -->
+    <!-- <link rel='stylesheet' href='fate_died.css'> -->
+    <title>Sharks send their regards!</title>
     <style>
 
          .msg {
@@ -37,7 +40,8 @@
       <div class="bubble bubble--10"></div>
       <div class="bubble bubble--11"></div>
       <div class="bubble bubble--12"></div>
-        <div class="ocean2"></div>
+      <div class="ocean2"></div>
+      <div class="cthulhu"></div>
     </div>
 
     <div class="msg"> <h1> Congratulations You've died</h1></div>

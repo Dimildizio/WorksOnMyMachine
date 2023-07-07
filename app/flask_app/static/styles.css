@@ -1,0 +1,255 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(ellipse at center, #fffeea 0%, #fffeea 35%, #b7e8eb 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+/* Ticket booking Container */
+.container {
+  width: 90%;
+  max-width: 300px;
+  margin: 20px auto;
+  background: linear-gradient(#33CCFF,#585858);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 4;
+}
+
+/* Title */
+h1 {
+  text-align: center;
+}
+
+/* Each row */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Groups in rows */
+.form-group {
+  flex-basis: 48%;
+  margin-bottom: 2px;
+  margin-right: 2%;
+}
+
+/* Form labels - names */
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* Form inputs and selections available */
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 6px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+}
+
+/* Submit button */
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 50px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+
+
+
+.center {
+  justify-content: center;
+}
+
+/* Submit button hover effect */
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Error message */
+input:invalid,
+select:invalid {
+  border-color: #ff0000;
+}
+
+/* Error message text */
+input:invalid+span::before,
+select:invalid+span::before {
+  content: '⚠ ';
+  color: #ff0000;
+}
+
+/* Clear float */
+.clear {
+  clear: both;
+}
+
+/* Responsive layout */
+@media (max-width: 500px) {
+  .container {
+    width: 80%;
+    max-width: 400px;
+    height: 80%;
+    max-height: 600px;
+  }
+}
+
+/* waves */
+.ocean {
+  height: 180px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-x: hidden;
+}
+
+.iceberg {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 100%;
+  bottom: 0%;
+  width: 50%;
+  height: 50%;
+  background-image: url("pictures/iceberg.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  animation: moveIceberg 10s linear infinite, hideIceberg 5s linear 5s forwards, showIceberg 0s linear 35s forwards;
+  opacity: 0.1;
+}
+
+@keyframes moveIceberg {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: 0%;
+  }
+}
+
+@keyframes hideIceberg {
+  0% {
+    opacity 0.1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes showIceberg {
+ 0% {
+    opacity 0;
+    }
+ 100% {
+    opacity: 0.1;
+    }
+ }
+
+.ship {
+  position: absolute;
+  left: 100%;
+  bottom: -40%;
+  transform: translateX(-50%);
+  width: 300%;
+  height: 150%;
+  background-image: url("pictures/ship.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+  animation: moveShip 80s linear infinite, rotateShip 3s linear infinite;
+}
+
+@keyframes moveShip {
+  0% {
+    left: -15%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+
+@keyframes rotateShip {
+  0% {
+    transform: translateX(-50%) rotate(-2deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(2deg);
+  }
+  100% {
+    transform: translateX(-50%) rotate(-2deg);
+  }
+}
+
+.wave {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3ClinearGradient id='wave-gradient' gradientTransform='rotate(90)'%3E%3Cstop offset='0%' stop-color='%2300BFFF'/%3E%3Cstop offset='100%' stop-color='%23191970'/%3E%3C/linearGradient%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='url(%23wave-gradient)'/%3E%3C/svg%3E");
+  position: absolute;
+  width: 300%;
+  height: 120%;
+  animation: wave 22s -3s linear infinite;
+  transform: translate3d(0, 0, 0);
+  opacity: 0.3;
+  animation-fill-mode: forwards;
+}
+
+.wave:nth-of-type(2) {
+  bottom: -80%;
+  animation: wave 28s linear reverse infinite;
+  opacity: 0.4;
+   z-index: 3;
+}
+
+.wave:nth-of-type(3) {
+  bottom: -60%;
+  animation: wave 32s -1s linear infinite;
+  opacity: 0.3;
+   z-index: 3;
+}
+
+.wave:nth-of-type(4) {
+  bottom: -30%;
+  animation: wave 25s -1s linear infinite;
+  opacity: 0.2;
+   z-index: 3;
+}
+
+.wave:nth-of-type(5) {
+  bottom: -75%;
+  animation: wave 17s -1s linear infinite;
+  opacity: 0.6;
+   z-index: 2;
+}
+
+@keyframes wave {
+    0% {transform: translateX(0);}
+    50% {transform: translateX(-33.33%);}
+    100% {transform: translateX(-66.66%);}
+
+}
+

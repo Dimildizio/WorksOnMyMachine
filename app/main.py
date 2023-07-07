@@ -29,10 +29,11 @@ async def make_prediction(title: str = Query(default='Mr', description="Passenge
                           ticket: str = Query(default='6666', description="Passenger's ticket number")):
 
     output, text = process(title, name, surname, sex, pclass, age, cabin, fare, siblings, spouse, relatives, embarked, ticket)
-    print('The model predicted:', output)
 
     response = {'Message': text}
     result = 'Congratulations! You have survived the Titanic catastrophy' if output else "Congratulations! " \
              "You are now in a better world! You have died in a Titanic catastrophy"
-    response['Prediction'] = f'\n[{str(output)}] - {result}'
+    print('the output type is: ',int(output))
+    print(result)
+    response['Prediction'] = bool(output)
     return response

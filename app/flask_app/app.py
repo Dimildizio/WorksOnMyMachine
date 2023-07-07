@@ -4,7 +4,7 @@ from flask import Flask, request, render_template
 from random import randint
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=os.path.join(os.getcwd(),'templates'))
 
 
 @app.route('/')
@@ -29,7 +29,7 @@ def prediction():
     ticket = randint(1, 3000)
 
     if sex == 'male' and dicaprio(name, surname):
-        message = f"Sorry, {name} {surname} there isn't enough space on that door"
+        message = f"Sorry, {name} {surname} there wasn't enough space on that door"
         # Change for other html page
         page = render_template('leo.html', message=message)
         return page
@@ -59,8 +59,8 @@ def prediction():
     message = result['Message']
     fate = result['Prediction']
     print("Rendering predicted fate template")
-
-    if int(fate[0]):
+    print(fate)
+    if fate:
         # Survived page
         page = render_template('fate_survived.html', message=message, fate=fate)
     else:

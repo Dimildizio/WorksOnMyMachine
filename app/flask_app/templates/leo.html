@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="leostyle.css">
-    <title>Leo's fate</title>
+    <!-- For flask launch -->
+    <link rel="stylesheet" href="{{url_for('static' ,filename='leostyle.css') }}">
+    <!--for pure .html launch -->
+    <!-- <link rel='stylesheet' href='leostyle.css'> -->
+    <title>Poor Leo</title>
     <style>
         .error-message {
             color: red;
@@ -26,7 +29,7 @@
     <!--
     <div class="msg"> <h1> {{message}} </h1></div>
     -->
-    <div class="msg"> <h1> Sorry, Leo there isn't enough room on the door</h1></div>
+    <div class="msg"> <h1> {{message}} </h1></div>
     <div class="ocean">
         <div class="iceberg"></div>
         <div class="raft"></div>

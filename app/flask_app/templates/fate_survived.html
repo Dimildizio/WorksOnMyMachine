@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="fate_survived.css">
+    <!--For flask-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fate_survived.css') }}">
+    <!--for pure .html launch -->
+    <!-- <link rel='stylesheet' href='fate_survived.css'> -->
     <title>You've survived!</title>
     <style>
 

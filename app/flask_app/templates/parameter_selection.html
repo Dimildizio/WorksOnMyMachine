@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
+    <!-- For  Flask launch -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!--for pure .html launch -->
+    <!-- <link rel='stylesheet' href='styles.css'> -->
+
     <title>Titanic parameter selection</title>
     <style>
         .error-message {
@@ -138,6 +142,6 @@
         </form>
 
     </div>
-    <script src="titanscript.js"></script>
+    <script src="{{ url_for('static', filename='titanscript.js') }}"></script>
 </body>
 </html>
