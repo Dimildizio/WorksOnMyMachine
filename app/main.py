@@ -1,7 +1,6 @@
 from fastapi import FastAPI, Query
 from data_preprocessing import process
 
-# from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -28,12 +27,13 @@ async def make_prediction(title: str = Query(default='Mr', description="Passenge
                           embarked: str = Query(default='S', description="Port where the Passenger got on the ship"),
                           ticket: str = Query(default='6666', description="Passenger's ticket number")):
 
-    output, text = process(title, name, surname, sex, pclass, age, cabin, fare, siblings, spouse, relatives, embarked, ticket)
+    output, text = process(title, name, surname, sex, pclass, age, cabin, fare,
+                           siblings, spouse, relatives, embarked, ticket)
 
     response = {'Message': text}
     result = 'Congratulations! You have survived the Titanic catastrophy' if output else "Congratulations! " \
              "You are now in a better world! You have died in a Titanic catastrophy"
-    print('the output type is: ',int(output))
+    print('the output type is: ', int(output))
     print(result)
     response['Prediction'] = bool(output)
     return response

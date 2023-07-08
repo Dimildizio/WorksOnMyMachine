@@ -1,7 +1,5 @@
 import pandas as pd
-from model import predict
-
-from train_preprocess import load_encoder
+from onnx_model import onnx_inference, apply_encoder
 
 
 def process(title: str, name: str, surname: str, sex: str, pclass: int, age: int, cabin: str, fare: float,
@@ -12,7 +10,7 @@ def process(title: str, name: str, surname: str, sex: str, pclass: int, age: int
                               'SibSp': [spouse+siblings], 'Parch': [relatives], 'Pclass': [pclass]})
 
     text = process_text(fullname, sex, pclass, age, cabin, fare, siblings, spouse, relatives, embarked, ticket)
-    encoded_df = load_encoder(to_encode)
+    encoded_df = apply_encoder(to_encode)
     survived = get_model_result(encoded_df)
     return survived, text
 
@@ -29,7 +27,7 @@ def process_text(fullname: str, sex: str, pclass: int, age: int, cabin: str, far
 
 
 def get_model_result(*args):
-    predicted = predict(*args)[0]
+    predicted = onnx_inference(*args)[0]
     print('Congratulations, you have survived the Titanic catastrophy' if predicted else 'Sorry, you have died')
     return predicted
 
