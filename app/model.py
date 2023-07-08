@@ -4,12 +4,14 @@ from catboost import Pool, CatBoostClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from train_preprocess import predict_age, cut_outlier
+import onnxruntime
 
 
 def predict(data):
-    model = load_model()
+    return load_onnx_model(data)
+    '''model = load_model()
     model_result = model.predict(data)
-    return model_result
+    return model_result'''
 
 
 def xy_split(data):
@@ -91,17 +93,15 @@ def load_model():
     return model
 
 def load_onnx_model(df):
-    '''
-    Requires onnxruntime installed. Not in requirements.txt as of now.
-    Might replace catboost model with it later
 
-    import onnxruntime
-    values = df.values
-    model = onnxruntime.InferenceSession('titanicboost.onnx')
-    label = model.run('label',{'features': values})[0][0]
-    return label
-    '''
-    pass
+    values = df.values.astype('float32')
+    model = onnxruntime.InferenceSession('models/titanicboost.onnx')
+    label = model.run(['label'], {'features': values})
+    for x in df.columns:
+        print('column',df[x])
+    predictions = model.run(['probabilities'], {'features': values})
+    print('all predictions', predictions)
+    return label[0]
 
 
 if __name__ == '__main__':

@@ -23,7 +23,7 @@ def process_text(fullname: str, sex: str, pclass: int, age: int, cabin: str, far
     txt = (f'You are {fullname}, a {age} year old {sex}, {pclass} class passenger in cabin {cabin}.\n'
            f'You got on Titanic at {port[embarked]} for {fare} pounds {"with " if any([spouse, siblings, relatives]) else ""} '
            f'{"a spouse " if spouse else ""} {siblings if siblings else ""}{" siblings " if siblings else ""}'
-           f'{relatives if relatives else ""}{" relatives" if siblings else ""}.\n Your ticket is number {ticket}')
+           f'{relatives if relatives else ""}{" relatives" if relatives else ""}.\n Your ticket is number {ticket}')
     print(txt)
     return txt
 
@@ -35,4 +35,4 @@ def get_model_result(*args):
 
 
 if __name__ == '__main__':
-    print(process('Mrs', 'Claire', 'Labelle', 'female', 2, 32, 'C123', 17, 2, 0, 2, 'S', '113803'))
+    print(process('Mrs', 'Claire', 'Labelle', 'female', 1, 30, 'A123', 30, 0, 0, 0, 'S', '113803'))
