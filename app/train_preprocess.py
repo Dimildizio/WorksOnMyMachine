@@ -51,7 +51,14 @@ def apply_all(data):
     for func in [fill_na, get_title, get_family, get_fare_per_person, get_deck,
                  drop_useless]:  # , predict_age, get_age_buckets, change_dtypes]:
         df = func(df)
+    df = reassemble_order(df)
     return df
+
+def reassemble_order(data):
+    # Make sure columns a properly organized since catboost models are sensitive to the column order
+    new_data = data[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked', 'Title', 'Family_size',
+                     'PersonFare', 'Deck']]
+    return new_data
 
 
 def cut_outlier(data):

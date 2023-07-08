@@ -1,17 +1,21 @@
 import os
 import pandas as pd
-from catboost import Pool, CatBoostClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from train_preprocess import predict_age, cut_outlier
 import onnxruntime
 
+# Uncomment this line if want to use\train catboost instead of onnx model
+#from catboost import Pool, CatBoostClassifier
 
-def predict(data):
-    return load_onnx_model(data)
-    '''model = load_model()
-    model_result = model.predict(data)
-    return model_result'''
+
+def predict(data, onnx=True):
+    if onnx:
+        return load_onnx_model(data)
+    else:
+        model = load_model()
+        model_result = model.predict(data)
+        return model_result
 
 
 def xy_split(data):
@@ -92,19 +96,34 @@ def load_model():
     model.load_model('models/titanicboost.cbm')
     return model
 
-def load_onnx_model(df):
 
-    values = df.values.astype('float32')
-    model = onnxruntime.InferenceSession('models/titanicboost.onnx')
+def load_onnx_model(df):
+    values = prepare_onnx_vals(df)
+    model = get_onnx_model()
+
+    onnx_pred_info(model, values)
+    result = onnx_inference(model, values)
+    return result[0]  # First value since we need only one
+
+
+def get_onnx_model():
+    return onnxruntime.InferenceSession('models/titanicboost.onnx')
+
+
+def prepare_onnx_vals(df):
+    return df.values.astype('float32')
+
+
+def onnx_inference(model, values):
     label = model.run(['label'], {'features': values})
-    for x in df.columns:
-        print('column',df[x])
-    predictions = model.run(['probabilities'], {'features': values})
+    return label
+
+
+def onnx_pred_info(model, vals):
+    predictions = model.run(['probabilities'], {'features': vals})
     print('all predictions', predictions)
-    return label[0]
 
 
 if __name__ == '__main__':
     # create_model()
     save_onnx_model()
-
