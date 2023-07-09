@@ -1,73 +1,70 @@
+"""
+train_preprocess.py
+
+This module contains functions for preprocessing the training data.
+Script for model training. Requires sklearn and catboost which are not included in Docker files additionally installed.
+
+Functions:
+- cut_outlier(data): Remove outliers from the input DataFrame based on the 'Age' and 'PersonFare' columns.
+- predict_age(train, test): Predict missing 'Age' values in the DataFrame using a model trained  on the
+  train+test DataFrames.
+- train_encoder(cols=['Sex', 'Title', 'Deck', 'Embarked']): Train an encoder on the specified columns of the
+  concatenated train and test datasets.
+- load_encoder(data): Apply preprocessing steps to the input DataFrame and encode the transformed data using a
+  trained encoder.
+"""
+
 import pandas as pd
 from data_encoder import create_encoder, encode_data
 from predict_age_model import age_predictor
+from dataframe_manipulations import apply_all
+from typing import Tuple
 
 
-def get_title(df):
-    df['Title'] = df['Name'].str.extract(' ([A-Za-z]+)\.', expand=False)
-    df['Title'] = df['Title'].replace(['Dr', 'Col', 'Sir', 'Major', 'Master'], 'Mr')
-    df['Title'] = df['Title'].replace(['Capt', 'Don', 'Jonkheer'], 'Rev')
-    df['Title'] = df['Title'].replace(['Ms', 'Lady', 'Mlle', 'Countess', 'Mme', 'Dona'], 'Rev_fem')
-    return df
+def cut_outlier(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Remove outliers from the input DataFrame based on the 'Age' and 'PersonFare' columns.
+    Parameters:
+    - data (pandas.DataFrame): The input DataFrame.
+    Returns:
+    - data (pandas.DataFrame): The DataFrame with outliers removed.
+    """
 
-
-def get_family(df):
-    df['Family_size'] = df['Parch']+df['SibSp'] + 1
-    return df
-
-
-def get_deck(df):
-    df['Cabin'].fillna('Z', inplace=True)
-    df['Deck'] = df['Cabin'].str.extract(r'([A-Za-z]+)')
-    return df
-
-
-def drop_useless(df):
-    df = df.drop(['PassengerId', 'Name', 'Cabin', 'Ticket'], axis=1)
-    return df
-
-
-def get_age_buckets(df):
-    # labels are 'Child', 'Young Adult', 'Adult', 'Senior'
-    df['AgeBucket'] = pd.cut(df['Age'], bins=[0, 18, 30, 50, 80], labels=[1, 2, 3, 4])
-    # print('empty buckets: ', df[df['AgeBucket'].isna()])
-    df['AgeBucket'] = df['AgeBucket'].astype('int16')
-    return df
-
-
-def get_fare_per_person(df):
-    df['PersonFare'] = df['Fare'] / df['Family_size']
-    return df
-
-
-def fill_na(df):
-    df['Fare'].fillna(df['Fare'].mean(), inplace=True)
-    df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
-    return df
-
-
-def apply_all(data):
-    df = data.copy()
-    for func in [fill_na, get_title, get_family, get_fare_per_person, get_deck,
-                 drop_useless]:  # , predict_age, get_age_buckets, change_dtypes]:
-        df = func(df)
-    return df
-
-
-def cut_outlier(data):
     data = data[data['Age'] < 70]
     data = data[data['PersonFare'] < 300]
     return data
 
 
-def predict_age(train, test):
+def predict_age(train: pd.DataFrame, test: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Predict missing 'Age' values in the DataFrame using a model trained on both concatenated test and train DataFrame.
+    Parameters:
+    - train (pandas.DataFrame): The training DataFrame.
+    - test (pandas.DataFrame): The test DataFrame.
+    Returns:
+    - age_predictions (pandas.Series): The predicted 'Age' values for the DataFrame.
+    """
+
     df_train = load_encoder(train.copy().drop('Survived', axis=1))
     df_test = load_encoder(test.copy())
     return age_predictor(df_train, df_test, train['Survived'])
 
 
-def train_encoder(cols=['Sex', 'Title', 'Deck', 'Embarked']):
-    # Concatenates train and test datasets and train the encoder on both
+def train_encoder(cols: list = ['Sex', 'Title', 'Deck', 'Embarked']) -> pd.DataFrame:
+    """
+    Train an encoder on the specified columns of the concatenated train and test datasets:
+    - Drop target value for train
+    - Combine test and train
+    - Apply necessary transformations to columns
+    - Train encoder model
+    - Reassemble the datasets
+    Parameters:
+    - cols (list): The list of column names to use for training the encoder.
+                    Default is ['Sex', 'Title', 'Deck', 'Embarked'].
+    Returns:
+    - df (pandas.DataFrame): The concatenated DataFrame with encoded columns.
+    """
+
     train = pd.read_csv('data/train.csv')
     test = pd.read_csv('data/test.csv')
 
@@ -81,7 +78,15 @@ def train_encoder(cols=['Sex', 'Title', 'Deck', 'Embarked']):
     return df
 
 
-def load_encoder(data):
+def load_encoder(data) -> pd.DataFrame:
+    """
+    Apply preprocessing steps to the input DataFrame and encode the transformed data using a trained encoder.
+    Parameters:
+    - data (pandas.DataFrame): The input DataFrame.
+    Returns:
+    - transformed_data (pandas.DataFrame): The transformed and encoded DataFrame.
+    """
+
     transformed_data = apply_all(data)
     return encode_data(transformed_data)
 
