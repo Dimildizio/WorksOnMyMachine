@@ -1,19 +1,42 @@
+"""
+app.py
+
+This module contains the Flask application for handling parameter selection and making predictions.
+
+Functions:
+- parameter_selection(): Renders the parameter selection HTML template.
+- prediction(): Handles the prediction request and renders the appropriate HTML template based on the prediction result.
+- dicaprio(name, surname): Checks if the name and surname match "Jack Dawson" or "Leonardo DiCaprio" variations.
+"""
+
+
 import requests
 import os
 from flask import Flask, request, render_template
 from random import randint
 
 
-app = Flask(__name__, template_folder=os.path.join(os.getcwd(),'templates'))
+app = Flask(__name__, template_folder=os.path.join(os.getcwd(), 'templates'))
 
 
 @app.route('/')
-def parameter_selection():
+def parameter_selection() -> str:
+    """
+    Renders the parameter selection HTML template.
+    Returns:
+    - str: The rendered HTML template.
+    """
     return render_template('parameter_selection.html')
 
 
 @app.route('/prediction', methods=['POST', "GET"])
-def prediction():
+def prediction() -> str:
+    """
+    Handles the prediction request and renders the appropriate HTML template based on the prediction result.
+    Returns:
+    - str: The rendered HTML template.
+    """
+
     title = request.args.get('title')
     name = request.args.get('name')
     surname = request.args.get('surname')
@@ -29,7 +52,7 @@ def prediction():
     ticket = randint(1, 3000)
 
     if sex == 'male' and dicaprio(name, surname):
-        message = f"Sorry, {name} {surname} there wasn't enough space on that door"
+        message = "Sorry, Leo there wasn't enough space on that door"
         # Change for other html page
         page = render_template('leo.html', message=message)
         return page
@@ -69,7 +92,16 @@ def prediction():
     return page
 
 
-def dicaprio(name, surname):
+def dicaprio(name: str, surname: str) -> bool:
+    """
+    Checks if the name and surname match "Jack Dawson" or "Leonardo DiCaprio" variations.
+    Parameters:
+    - name (str): The passenger's name.
+    - surname (str): The passenger's surname.
+    Returns:
+    - bool: True if the name and surname match "Jack Dawson" or "Leonardo DiCaprio" variations, False otherwise.
+    """
+
     jack = name.lower() in ['jack', 'джек']
     dawson = surname.lower() in ['dawson', 'доусон', 'довсон', 'даусон', 'досон']
     leo = name.lower() in ['leo', 'leonardo', 'леонардо', 'лео']
