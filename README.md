@@ -10,6 +10,8 @@ To use this project, you need to have the following installed on your system:
 
 > Docker Compose (optional): Install **Docker Compose** (not required but recommended)
 
+> **Note**: The original model is Catboost but due to the size of the library it's not included into the Docker image. Instead it's converted to ONNX and used on inference. If you wish to retrain the model or run the training part of the code, you need to install Catboost manually.  
+
 
 ## Getting Started
 To get started with this project, follow the steps below:
