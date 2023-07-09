@@ -5,7 +5,7 @@ services:
       context: ./app/flask_app
       dockerfile: Dockerfile_flask
     ports:
-      - '80:5000'
+      - '8080:5000'
     environment:
       - DOCKER_ENV=true
     depends_on:
@@ -16,4 +16,4 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '80:8000'
+      - '8080:8000'
