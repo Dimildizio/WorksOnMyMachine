@@ -57,10 +57,7 @@ def prediction() -> str:
         page = render_template('leo.html', message=message)
         return page
 
-    if 'DOCKER_ENV' in os.environ:
-        url = 'http://worksonmymachine-backend-1:8000/prediction'   # If ran through docker
-    else:
-        url = 'http://localhost:8000/prediction'  # If direct run without docker
+    url = 'http://worksonmymachine-backend-1:8000/prediction'
     params = {
         'title': title,
         'name': name,
